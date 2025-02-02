@@ -1,0 +1,176 @@
+<nav
+  class="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50"
+>
+  <img
+    src="/logo.png"
+    alt="Logo"
+    class="w-28 cursor-pointer mr-14 dark:hidden"
+  />
+
+  <img
+    src="/logo_dark.png"
+    alt="Logo"
+    class="w-28 cursor-pointer mr-14 hidden dark:block"
+  />
+
+  <ul
+    class="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Ovo dark:border dark:border-white/50 dark:bg-transparent"
+  >
+    <li><a href="#top">Home</a></li>
+    <li><a href="#whoami">Who am i?</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">My Work</a></li>
+    <li><a target="_blank" href="https://rajeshrajasekaran.hashnode.dev/">My writings</a></li>
+  </ul>
+
+  <div class="flex items-center gap-4">
+    <button id="toggle-theme" class="cursor-pointer">
+      <img src="/moon_icon.png" alt="" class="w-6 dark:hidden" />
+      <img src="/sun_icon.png" alt="" class="w-6 hidden dark:block" />
+    </button>
+
+    <a
+      href="#contact"
+      class="hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-Ovo dark:border-white/50"
+    >
+      Contact
+      <img src="/arrow-icon.png" alt="" class="w-3 dark:hidden" />
+      <img src="/arrow-icon-dark.png" alt="" class="w-3 hidden dark:block" />
+    </a>
+
+    <button class="block md:hidden ml-3" id="open-menu">
+      <img src="/menu-black.png" alt="" class="w-6 dark:hidden" />
+      <img src="/menu-white.png" alt="" class="w-6 hidden dark:block" />
+    </button>
+  </div>
+  <!-- ----- mobile menu ------  -->
+  <ul
+    id="sideMenu"
+    class="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo dark:bg-dark-hover dark:text-white"
+  >
+    <div id="close-menu" class="absolute right-6 top-6">
+      <img
+        src="/close-black.png"
+        alt=""
+        class="w-5 cursor-pointer dark:hidden"
+      />
+
+      <img
+        src="/close-white.png"
+        alt=""
+        class="w-5 cursor-pointer hidden dark:block"
+      />
+    </div>
+
+    <li><a href="#top" id="close-menu-home">Home</a></li>
+    <li><a href="#whoami" id="close-menu-whoami">Who am I?</a></li>
+    <li><a href="#services" id="close-menu-services">Services</a></li>
+    <li><a href="#work" id="close-menu-work">My Works</a></li>
+    <li><a href="#contact" id="close-menu-contact">Contact me</a></li>
+  </ul>
+</nav>
+
+<script>
+  const sideMenu = document.querySelector("#sideMenu") as HTMLElement | null;
+  const navBar = document.querySelector("nav") as HTMLElement | null;
+  const navLinks = document.querySelector("nav ul") as HTMLElement | null;
+  const menuLinks = document.querySelectorAll("#sideMenu li>a");
+  const toggleButton = document.querySelector("#toggle-theme") as HTMLElement | null;
+
+  function openMenu() {
+    if (sideMenu) {
+      sideMenu.style.transform = "translateX(-16rem)";
+    }
+  }
+
+  function closeMenu() {
+    if (sideMenu) {
+      sideMenu.style.transform = "translateX(16rem)";
+    }
+  }
+
+  const openMenuIcon = document.getElementById(
+    "open-menu"
+  ) as HTMLElement | null;
+  const closeMenuIcon = document.getElementById(
+    "close-menu"
+  ) as HTMLElement | null;
+
+  if (openMenuIcon) {
+    openMenuIcon.addEventListener("click", () => openMenu());
+  }
+
+  if (closeMenuIcon) {
+    closeMenuIcon.addEventListener("click", () => closeMenu());
+  }
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => closeMenu());
+  });
+
+  window.addEventListener("scroll", () => {
+    if (!navBar || !navLinks) return; // ✅ Prevents errors
+
+    if (scrollY > 50) {
+      navBar.classList.add(
+        "bg-white",
+        "bg-opacity-50",
+        "backdrop-blur-lg",
+        "shadow-sm",
+        "dark:bg-dark-theme",
+        "dark:shadow-white/20"
+      );
+      navLinks.classList.remove(
+        "bg-white",
+        "shadow-sm",
+        "bg-opacity-50",
+        "dark:border",
+        "dark:border-white/50",
+        "dark:bg-transparent"
+      );
+    } else {
+      navBar.classList.remove(
+        "bg-white",
+        "bg-opacity-50",
+        "backdrop-blur-lg",
+        "shadow-sm",
+        "dark:bg-dark-theme",
+        "dark:shadow-white/20"
+      );
+      navLinks.classList.add(
+        "bg-white",
+        "shadow-sm",
+        "bg-opacity-50",
+        "dark:border",
+        "dark:border-white/50",
+        "dark:bg-transparent"
+      );
+    }
+  });
+
+  // -------- Light Mode & Dark Mode -----------
+
+  if (
+    localStorage.getItem("theme") === "dark" ||
+    (!localStorage.getItem("theme") &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle("dark");
+
+    if (document.documentElement.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.setItem("theme", "light");
+    }
+  }
+
+  if(toggleButton) {
+    toggleButton.addEventListener("click", () => toggleTheme())
+  }
+</script>
