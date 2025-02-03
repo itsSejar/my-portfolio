@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 ---
 
 <!doctype html>
@@ -16,6 +17,7 @@ import "../styles/global.css";
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ovo&display=swap"
       rel="stylesheet"
     />
+    <Analytics />
   </head>
   <body
     class="overflow-x-hidden font-Outfit leading-8 bg-yellow-50 text-dark-theme dark:bg-dark-theme dark:text-yellow-50"
