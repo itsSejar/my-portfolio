@@ -1,0 +1,18 @@
+# build output
+dist/
+
+# Local fonts
+fonts/
+
+# cache files
+.eslintcache
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+package-lock.json
+
+# Local Vercel folder
+.vercel
